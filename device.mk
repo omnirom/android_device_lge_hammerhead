@@ -91,6 +91,10 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+# frandom
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/init.d/00random:system/etc/init.d/00random
+
 # This device is xhdpi.  However the platform doesn't
 # currently contain all of the bitmaps at xhdpi density so
 # we do this little trick to fall back to the hdpi version

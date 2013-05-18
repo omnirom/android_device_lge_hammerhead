@@ -1,0 +1,13 @@
+#!/system/bin/sh
+
+if [ -e /dev/erandom ]; then
+  chmod 666 /dev/erandom
+  mv /dev/urandom /dev/urandom.bak
+  ln /dev/erandom /dev/urandom
+fi
+
+if [ -e /dev/frandom ]; then
+  chmod 666 /dev/frandom
+  mv /dev/random /dev/random.bak
+  ln /dev/frandom /dev/random
+fi
