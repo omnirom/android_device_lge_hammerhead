@@ -37,7 +37,7 @@ PRODUCT_MANUFACTURER := LGE
 
 # Kernel inline build
 TARGET_KERNEL_SOURCE := kernel/msm/google
-TARGET_KERNEL_CONFIG := hammerhead_defconfig
+TARGET_KERNEL_CONFIG := omni_hammerhead_defconfig
 TARGET_VARIANT_CONFIG := hammerhead_defconfig
 TARGET_SELINUX_CONFIG := hammerhead_defconfig
 
