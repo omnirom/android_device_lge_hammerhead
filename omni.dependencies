@@ -1,6 +1,6 @@
 [
   {
-    "repository": "android_kernel_msm_google",
+    "repository": "android_kernel_google_msm",
     "target_path": "kernel/msm/google",
     "revision": "android-msm-hammerhead-3.4-kk-r1"
   }
