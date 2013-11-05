@@ -14,7 +14,7 @@ N5_DTS_TARGET ?= msm8974-hammerhead
 KERNEL_CONFIG := $(KERNEL_OUT)/.config
 N5_DTS_NAMES := msm8974
 
-N5_DTS_FILES = $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/$(N5_DTS_TARGET)/*.dtsi)
+N5_DTS_FILES = $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/$(N5_DTS_TARGET)/*.dts)
 N5_DTS_FILE = $(lastword $(subst /, ,$(1)))
 DTB_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/,$(patsubst %.dts,%.dtb,$(call N5_DTS_FILE,$(1))))
 ZIMG_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/,$(patsubst %.dts,%-zImage,$(call N5_DTS_FILE,$(1))))
@@ -35,25 +35,25 @@ DTBTOOL := $(HOST_OUT_EXECUTABLES)/dtbTool$(HOST_EXECUTABLE_SUFFIX)
 INSTALLED_DTIMAGE_TARGET := $(PRODUCT_OUT)/dt.img
 
 $(INSTALLED_DTIMAGE_TARGET): $(DTBTOOL) $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr $(INSTALLED_KERNEL_TARGET)
-        @echo -e ${CL_CYN}"Start DT image: $@"${CL_RST}
-        $(call append-N5-dtb)
-        $(call pretty,"Target dt image: $(INSTALLED_DTIMAGE_TARGET)")
-        $(hide) $(DTBTOOL) -o $(INSTALLED_DTIMAGE_TARGET) -s $(BOARD_KERNEL_PAGESIZE) -p $(KERNEL_OUT)/scripts/dtc/ $(KERNEL_OUT)/arch/arm/boot/
-        @echo -e ${CL_CYN}"Made DT image: $@"${CL_RST}
+		@echo -e ${CL_CYN}"Start DT image: $@"${CL_RST}
+		$(call append-N5-dtb)
+		$(call pretty,"Target dt image: $(INSTALLED_DTIMAGE_TARGET)")
+		$(hide) $(DTBTOOL) -o $(INSTALLED_DTIMAGE_TARGET) -s $(BOARD_KERNEL_PAGESIZE) -p $(KERNEL_OUT)/scripts/dtc/ $(KERNEL_OUT)/arch/arm/boot/
+		@echo -e ${CL_CYN}"Made DT image: $@"${CL_RST}
 
 
 ## Overload bootimg generation: Same as the original, + --dt arg
 $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) $(INSTALLED_DTIMAGE_TARGET)
-        $(call pretty,"Target boot image: $@")
-        $(hide) $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --dt $(INSTALLED_DTIMAGE_TARGET) --output $@
-        $(hide) $(call assert-max-image-size,$@,$(BOARD_BOOTIMAGE_PARTITION_SIZE),raw)
-        @echo -e ${CL_CYN}"Made boot image: $@"${CL_RST}
+		$(call pretty,"Target boot image: $@")
+		$(hide) $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --dt $(INSTALLED_DTIMAGE_TARGET) --output $@
+		$(hide) $(call assert-max-image-size,$@,$(BOARD_BOOTIMAGE_PARTITION_SIZE),raw)
+		@echo -e ${CL_CYN}"Made boot image: $@"${CL_RST}
 
 ## Overload recoveryimg generation: Same as the original, + --dt arg
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(INSTALLED_DTIMAGE_TARGET) \
-                $(recovery_ramdisk) \
-                $(recovery_kernel)
-        @echo -e ${CL_CYN}"----- Making recovery image ------"${CL_RST}
-        $(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --dt $(INSTALLED_DTIMAGE_TARGET) --output $@
-        $(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE),raw)
-        @echo -e ${CL_CYN}"Made recovery image: $@"${CL_RST}
+				$(recovery_ramdisk) \
+				$(recovery_kernel)
+		@echo -e ${CL_CYN}"----- Making recovery image ------"${CL_RST}
+		$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --dt $(INSTALLED_DTIMAGE_TARGET) --output $@
+		$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE),raw)
+		@echo -e ${CL_CYN}"Made recovery image: $@"${CL_RST}
