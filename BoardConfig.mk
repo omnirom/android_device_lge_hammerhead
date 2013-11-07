@@ -87,6 +87,7 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_LIB := librecovery_ui_hammerhead
 TARGET_RECOVERY_FSTAB = device/lge/hammerhead/fstab.hammerhead
+DEVICE_RESOLUTION := 1080x1920
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerhead
 
