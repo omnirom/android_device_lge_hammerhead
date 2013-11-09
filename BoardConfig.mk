@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+DEVICE_PATH := device/lge/hammerhead
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -29,7 +30,7 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=hammerhead user_debug=31 maxcpus=2 msm_watchdog_v2.enable=1
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02900000 --tags_offset 0x02700000
 BOARD_KERNEL_SEPARATED_DT := true
-BOARD_CUSTOM_BOOTIMG_MK := device/lge/hammerhead/releasetools/mkbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/releasetools/mkbootimg.mk
 
 # Shader cache config options
 # Maximum size of the  GLES Shaders that can be cached for reuse.
@@ -45,7 +46,7 @@ BOARD_USES_ALSA_AUDIO := true
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerhead/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
 # Wifi related defines
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
@@ -63,12 +64,12 @@ BOARD_USES_SECURE_SERVICES := true
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := msm8974
 TARGET_BOOTLOADER_BOARD_NAME := hammerhead
-TARGET_BOARD_INFO_FILE := device/lge/hammerhead/board-info.txt
+TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 TARGET_PROVIDES_GPS_LOC_API := true
 TARGET_NO_RPC := true
 
-BOARD_EGL_CFG := device/lge/hammerhead/egl.cfg
+BOARD_EGL_CFG := $(DEVICE_PATH)/egl.cfg
 
 USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
@@ -89,16 +90,14 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_LIB := librecovery_ui_hammerhead
-TARGET_RECOVERY_FSTAB = device/lge/hammerhead/fstab.hammerhead
+TARGET_RECOVERY_FSTAB = $(DEVICE_PATH)/prebuilt/root/fstab.hammerhead
 
-TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerhead
-
-PDK_PLATFORM_ZIP_PRODUCT_BINARIES := device/lge/hammerhead-kernel/vmlinux.bz2
+TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
 BOARD_SEPOLICY_DIRS := \
-       device/lge/hammerhead/sepolicy
+       $(DEVICE_PATH)/sepolicy
 
 # The list below is order dependent
 BOARD_SEPOLICY_UNION := \
