@@ -178,11 +178,9 @@ PRODUCT_PACKAGES += \
     NfcNci \
     Tag
 
-PRODUCT_PACKAGES += \
-    libion
-
-PRODUCT_PACKAGES += \
-    lights.hammerhead
+# Other
+PRODUCT_PACKAGES += \
+  OmniTorch
 
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
