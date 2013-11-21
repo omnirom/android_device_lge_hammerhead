@@ -37,8 +37,8 @@ PRODUCT_MANUFACTURER := LGE
 
 # Kernel inline build
 TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
-TARGET_KERNEL_CONFIG := custom_hammerhead_defconfig
-TARGET_VARIANT_CONFIG := custom_hammerhead_defconfig
-TARGET_SELINUX_CONFIG := custom_hammerhead_defconfig
+TARGET_KERNEL_CONFIG := mackay_defconfig
+TARGET_VARIANT_CONFIG := mackay_defconfig
+TARGET_SELINUX_CONFIG := mackay_defconfig
 
 $(call inherit-product-if-exists, vendor/lge/hammerhead/device-vendor.mk)
