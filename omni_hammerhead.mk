@@ -41,4 +41,4 @@ TARGET_KERNEL_CONFIG := mackay_defconfig
 TARGET_VARIANT_CONFIG := mackay_defconfig
 TARGET_SELINUX_CONFIG := mackay_defconfig
 
-$(call inherit-product-if-exists, vendor/lge/hammerhead/device-vendor.mk)
+$(call inherit-product, vendor/lge/hammerhead/hammerhead-vendor.mk)
