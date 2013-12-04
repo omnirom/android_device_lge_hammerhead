@@ -21,4 +21,6 @@
      for different hardware and product builds. -->
 <resources>
     <bool name="useCameraInterface">true</bool>
+    <integer name="valueOn">90</integer>
+    <integer name="valueHigh">150</integer>
 </resources>

@@ -172,10 +172,6 @@ PRODUCT_PACKAGES += \
     gps.msm8974 \
     flp.msm8974
 
-# OmniTorch
-PRODUCT_PACKAGES += \
-  OmniTorch
-
 # NFC packages
 PRODUCT_PACKAGES += \
     nfc_nci.hammerhead \
@@ -187,6 +183,9 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     lights.hammerhead
+	
+PRODUCT_PACKAGES += \
+    OmniTorch
 
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
