@@ -174,7 +174,7 @@ PRODUCT_PACKAGES += \
 
 # OmniTorch
 PRODUCT_PACKAGES += \
-  OmniTorch
+    OmniTorch
 
 # NFC packages
 PRODUCT_PACKAGES += \
