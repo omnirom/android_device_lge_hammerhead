@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_26841cb6",
+        "filename": "device.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000224
+      },
+      "writtenOn": "2013-12-05T00:37:51Z",
+      "side": 1,
+      "message": "why have you moved the omnitorch package into the #nfc packages?",
+      "revId": "1e1014fa104416679906a39210fc1191866cef37",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
