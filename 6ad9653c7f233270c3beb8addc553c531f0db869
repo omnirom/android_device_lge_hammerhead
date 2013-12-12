@@ -33,6 +33,24 @@
       "revId": "6ad9653c7f233270c3beb8addc553c531f0db869",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8b61a3_ff16325a",
+        "filename": "init.hammerhead.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000123
+      },
+      "writtenOn": "2013-12-12T10:26:04Z",
+      "side": 1,
+      "message": "I have another question about that. I see other mount as media_rw and then the storage one as root, e.g.:\n\n    #External storage directories\n    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw\n    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw\n    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw\n\n    mkdir /storage/sdcard0 0700 root root\n    mkdir /storage/sdcard1 0700 root root\n    mkdir /storage/usbdisk 0700 root root\n\nI am not an expert on this, but I don\u0027t know what is \"better\" (example above is from jf with usbdisk for USB OTG).",
+      "parentUuid": "6b8b61a3_9f2fee9a",
+      "revId": "6ad9653c7f233270c3beb8addc553c531f0db869",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
