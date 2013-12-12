@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_7f322209",
+        "filename": "init.hammerhead.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000142
+      },
+      "writtenOn": "2013-12-12T09:36:55Z",
+      "side": 1,
+      "message": "Are these permissions really need? Default 0700 should be sufficient.",
+      "revId": "6ad9653c7f233270c3beb8addc553c531f0db869",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8b61a3_9f2fee9a",
+        "filename": "init.hammerhead.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000142
+      },
+      "writtenOn": "2013-12-12T09:36:55Z",
+      "side": 1,
+      "message": "Maybe move this line below the comment.",
+      "revId": "6ad9653c7f233270c3beb8addc553c531f0db869",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
