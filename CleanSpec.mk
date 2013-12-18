@@ -68,3 +68,11 @@ $(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/system/build.p
 $(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/system/build.prop)
 $(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/system/build.prop)
 $(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/system/build.prop)
+
+$(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/obj/KERNEL_OBJ/.version
+$(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/system/app/*.odex
+$(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/system/framework/*.odex
+$(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/omni*.zip
+$(call add-clean-step, rm -f $(OUT_DIR)/target/product/hammerhead/omni*.zip.md5sum
+
+
