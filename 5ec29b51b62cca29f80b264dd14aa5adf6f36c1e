@@ -34,6 +34,24 @@
       "revId": "5ec29b51b62cca29f80b264dd14aa5adf6f36c1e",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8b61a3_7159728f",
+        "filename": "fstab.hammerhead",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000032
+      },
+      "writtenOn": "2013-12-18T00:30:00Z",
+      "side": 1,
+      "message": "Er, my bad on the auto thing for the path name. It\u0027s right, I actually have it set as auto for my device (i9100g).\n\nHowever, auto for the disk format should be a better choice as it\u0027ll allow for more file systems to be recognized and mounted rather than just vfat.",
+      "parentUuid": "6b8b61a3_b17a1ae5",
+      "revId": "5ec29b51b62cca29f80b264dd14aa5adf6f36c1e",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
