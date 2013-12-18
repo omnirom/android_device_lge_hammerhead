@@ -52,6 +52,24 @@
       "revId": "5ec29b51b62cca29f80b264dd14aa5adf6f36c1e",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8b61a3_71d6d2ca",
+        "filename": "fstab.hammerhead",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000327
+      },
+      "writtenOn": "2013-12-18T01:01:30Z",
+      "side": 1,
+      "message": "Sure, I\u0027ll change it to auto detect the filesystem then.",
+      "parentUuid": "6b8b61a3_7159728f",
+      "revId": "5ec29b51b62cca29f80b264dd14aa5adf6f36c1e",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
