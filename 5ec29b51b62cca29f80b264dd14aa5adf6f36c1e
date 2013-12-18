@@ -16,6 +16,24 @@
       "revId": "5ec29b51b62cca29f80b264dd14aa5adf6f36c1e",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8b61a3_b17a1ae5",
+        "filename": "fstab.hammerhead",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000327
+      },
+      "writtenOn": "2013-12-18T00:17:11Z",
+      "side": 1,
+      "message": "I\u0027m currently using \u0027vfat\u0027 because it seems other device maintainers are doing the same. As for the mountpoint, in my testing, nothing except for \u0027auto\u0027 works (starting from Android 4.4). Maybe it\u0027s because vold mounts the appropriate device and partition to /mnt/media_rw/usbdisk and the sdcard daemon mounts a fuse filesystem to /storage/usbdisk.",
+      "parentUuid": "6b8b61a3_71709209",
+      "revId": "5ec29b51b62cca29f80b264dd14aa5adf6f36c1e",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
