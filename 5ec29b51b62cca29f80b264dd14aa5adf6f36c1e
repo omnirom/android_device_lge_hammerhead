@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_71709209",
+        "filename": "fstab.hammerhead",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000032
+      },
+      "writtenOn": "2013-12-18T00:06:45Z",
+      "side": 1,
+      "message": "I don\u0027t have an N5, but is forcing the format as vfat really what we want to do? Also, instead of auto, shouldn\u0027t it point directly to /storage/usbdisk?",
+      "revId": "5ec29b51b62cca29f80b264dd14aa5adf6f36c1e",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
