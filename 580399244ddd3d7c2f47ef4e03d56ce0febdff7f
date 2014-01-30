@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab62b9bd_c3b279e5",
+        "filename": "fstab.hammerhead",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2014-01-30T16:44:19Z",
+      "side": 1,
+      "message": "What if my disk is ext4?",
+      "revId": "580399244ddd3d7c2f47ef4e03d56ce0febdff7f",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
