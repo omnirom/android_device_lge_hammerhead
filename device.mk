@@ -196,10 +196,6 @@ PRODUCT_PACKAGES += \
     liblbs_core \
     flp.conf
 
-# OmniTorch
-PRODUCT_PACKAGES += \
-    OmniTorch
-
 # NFC packages
 PRODUCT_PACKAGES += \
     nfc_nci.bcm2079x.default \
