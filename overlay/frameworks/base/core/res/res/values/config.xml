@@ -304,4 +304,13 @@
         <item>hsupa:4094,87380,704512,4096,16384,110208</item>
     </string-array>
 
+    <!-- Global action menu -->
+    <string-array translatable="false" name="config_globalActionsList">
+        <item>power</item>
+        <item>reboot</item>
+        <item>airplane</item>
+        <item>users</item>
+        <item>silent</item>
+    </string-array>
+
 </resources>
