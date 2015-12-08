@@ -17,6 +17,7 @@
 import init.hammerhead.usb.rc
 import init.hammerhead_svelte.rc
 import init.hammerhead.diag.rc
+import init.hammerhead_fp.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -24,30 +25,19 @@ on early-init
 
 on init
     chmod 0701 /mnt/media_rw
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-    mkdir /storage/usbdisk 0700 root root
     mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system
     mkdir /firmware 0771 system system
 
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-
     # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
 on fs
     mount_all ./fstab.hammerhead
     restorecon_recursive /persist
-    setprop ro.crypto.fuse_sdcard true
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -125,12 +115,6 @@ on boot
     #venus
     write /sys/bus/msm_subsys/devices/subsys2/restart_level "related"
 
-    # Subsytem Ramdump collection
-    mkdir /data/tombstones 0777 system system
-    mkdir /data/tombstones/ramdump 0777 system system
-    restorecon_recursive /data/tombstones
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
-
     # leds
     chown system system /sys/class/leds/red/on_off_ms
     chown system system /sys/class/leds/green/on_off_ms
@@ -141,7 +125,9 @@ on boot
 on post-fs-data
     write /sys/kernel/boot_adsp/boot 1
 
-    mkdir /data/media 0770 media_rw media_rw
+    # Subsytem Ramdump collection
+    mkdir /data/tombstones/ramdump 0777 system system
+    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
 
     # NFC: create data/nfc for nv storage
     mkdir /data/nfc 0770 nfc nfc
@@ -202,6 +188,7 @@ on post-fs-data
     write /sys/devices/system/cpu/cpufreq/ondemand/optimal_freq 960000
     write /sys/devices/system/cpu/cpufreq/ondemand/sync_freq 960000
     write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load 80
+    restorecon_recursive /sys/devices/system/cpu/cpufreq/ondemand
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
@@ -418,14 +405,6 @@ service qseecomd /system/bin/qseecomd
     user root
     group root
 
-# virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-
-service fuse_usb /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
-    class late_start
-    disabled
-
 service charger /sbin/healthd -c
     class charger
     critical
@@ -441,6 +420,10 @@ service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -
     user bluetooth
     group system bluetooth
     oneshot
+
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /storage/usbdisk
+    class late_start
+    disabled
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \
@@ -477,3 +460,4 @@ service time_daemon /system/bin/time_daemon
     class late_start
     user root
     group root
+

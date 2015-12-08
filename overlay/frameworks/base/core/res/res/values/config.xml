@@ -129,7 +129,7 @@
     <integer name="config_defaultNotificationLedOff">9000</integer>
 
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
-    <integer name="config_safe_media_volume_index">6</integer>
+    <integer name="config_safe_media_volume_index">5</integer>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
@@ -194,6 +194,7 @@
         <item>"mobile_ia,14,0,2,-1,true"</item>
         <item>"bluetooth,7,7,2,-1,true"</item>
         <item>"ethernet,9,9,9,-1,true"</item>
+        <item>"mobile_emergency,15,0,2,-1,true</item>
     </string-array>
 
     <!-- This string array should be overridden by the device to present a list of radio
@@ -313,4 +314,12 @@
         <item>silent</item>
     </string-array>
 
+    <!-- The RadioAccessFamilies supported by the device.
+         Empty is viewed as "all".  Only used on devices which
+         don't support RIL_REQUEST_GET_RADIO_CAPABILITY
+         format is UMTS|LTE|... -->
+    <string translatable="false" name="config_radio_access_family">GSM | WCDMA | LTE | CDMA | EVDO</string>
+
+    <!-- Flag indicating if device supports EAP SIM, AKA, AKA' -->
+    <bool name="config_eap_sim_based_auth_supported">false</bool>
 </resources>

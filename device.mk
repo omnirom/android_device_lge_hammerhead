@@ -19,7 +19,6 @@
 #
 # Everything in this directory will become public
 
-
 PRODUCT_COPY_FILES += \
     device/lge/hammerhead/twrp.fstab:recovery/root/etc/twrp.fstab
 
@@ -54,10 +53,14 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/lge/hammerhead/media_codecs.xml:system/etc/media_codecs.xml \
+    device/lge/hammerhead/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     device/lge/hammerhead/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_COPY_FILES += \
     device/lge/hammerhead/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+
+PRODUCT_COPY_FILES += \
+    device/lge/hammerhead/bluetooth/BCM4339_003.001.009.0079.0339.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4335c0.hcd
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -83,7 +86,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
+    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
 
 # For GPS
 PRODUCT_COPY_FILES += \
@@ -102,8 +105,6 @@ PRODUCT_COPY_FILES += \
 # For SPN display
 PRODUCT_COPY_FILES += \
     device/lge/hammerhead/spn-conf.xml:system/etc/spn-conf.xml
-
-PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
@@ -313,7 +314,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # If data_no_toggle is 1 then active and dormancy enable at all times.
 # If data_no_toggle is 0 there are no reports if the screen is off.
-PRODUCT_PROPERTY_OVERRIDES += \
+# Leaving this property unset defaults to '0'
+#PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.data_no_toggle=1
 
 # Audio Configuration
@@ -324,6 +326,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecomm=true \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=false
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.vc_call_vol_steps=6
 
 # Setup custom emergency number list based on the MCC. This is needed by RIL
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -354,6 +359,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
 
+# Reduce client buffer size for fast audio output tracks
+PRODUCT_PROPERTY_OVERRIDES += \
+    af.fast_track_multiplier=1
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-swap=false
+
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += \
@@ -366,9 +378,23 @@ PRODUCT_COPY_FILES += \
     device/lge/hammerhead/init.hammerhead.diag.rc.user:root/init.hammerhead.diag.rc
 endif
 
+ifneq ($(filter hammerhead_fp aosp_hammerhead_fp,$(TARGET_PRODUCT)),)
+PRODUCT_COPY_FILES += \
+    device/lge/hammerhead/init.hammerhead_fp.rc:root/init.hammerhead_fp.rc \
+    hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/fw_bcmdhd_fp.bin:system/vendor/firmware/fw_bcmdhd.bin \
+    hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/fw_bcmdhd_apsta.bin:system/vendor/firmware/fw_bcmdhd_apsta.bin
+
+PRODUCT_COPY_FILES += \
+    hardware/broadcom/wlan/bcmdhd/config/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    hardware/broadcom/wlan/bcmdhd/config/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+
+else
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/device-bcm.mk)
+endif
+
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, hardware/qcom/msm8x74/msm8x74.mk)
 $(call inherit-product-if-exists, vendor/qcom/gpu/msm8x74/msm8x74-gpu-vendor.mk)
-$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/device-bcm.mk)
+

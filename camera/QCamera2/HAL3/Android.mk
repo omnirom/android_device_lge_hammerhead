@@ -2,6 +2,10 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+# QCamera3Factory.cpp has unused parameters.
+# QCamera3Channel.cpp compares array 'str' to a null pointer.
+LOCAL_CLANG_CFLAGS += -Wno-unused-parameter -Wno-tautological-pointer-compare
+
 LOCAL_SRC_FILES := \
         QCamera3Factory.cpp \
         QCamera3Hal.cpp \
@@ -31,7 +35,7 @@ LOCAL_C_INCLUDES := \
 LOCAL_C_INCLUDES += \
         hardware/qcom/display/msm8974/libgralloc
 
-LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl
+LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl libsync
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
