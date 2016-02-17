@@ -26987,7 +26987,7 @@
       apn="plus.acs.jp"
       user="ym"
       password="ym"
-      mmsproxy="andmms.plus.acs.ne.jp"
+      mmsproxy="andmms.plusacs.ne.jp"
       mmsport="8080"
       mmsc="http://mms-s"
       type="default,mms,supl,hipri"
