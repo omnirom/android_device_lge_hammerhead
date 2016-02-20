@@ -24,9 +24,6 @@ on early-init
     chown system system /sys/kernel/debug/kgsl/proc
 
 on init
-    chmod 0701 /mnt/media_rw
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-
     # Set permissions for persist partition
     mkdir /persist 0771 system system
     mkdir /firmware 0771 system system
@@ -420,10 +417,6 @@ service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -
     user bluetooth
     group system bluetooth
     oneshot
-
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /storage/usbdisk
-    class late_start
-    disabled
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \
