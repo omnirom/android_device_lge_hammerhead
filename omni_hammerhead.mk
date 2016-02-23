@@ -20,6 +20,9 @@
 # Inherit APNs list
 $(call inherit-product, vendor/omni/config/gsm.mk)
 
+# Exclude live wallpapers
+TARGET_EXCLUDE_LIVEWALLPAPERS := true
+
 # Inherit from the common Open Source product configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
@@ -41,8 +44,7 @@ PRODUCT_MANUFACTURER := LGE
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=hammerhead \
     BUILD_FINGERPRINT=google/hammerhead/hammerhead:6.0.1/MMB29Q/2480792:user/release-keys \
-    PRIVATE_BUILD_DESC="hammerhead-user 6.0.1 MMB29Q 2480792 release-keys" \
-    BUILD_ID=MMB29Q
+    PRIVATE_BUILD_DESC="hammerhead-user 6.0.1 MMB29Q 2480792 release-keys"
 
 # Kernel inline build
 TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
