@@ -20,6 +20,9 @@
 # Inherit APNs list
 $(call inherit-product, vendor/omni/config/gsm.mk)
 
+# Exclude live wallpapers
+TARGET_EXCLUDE_LIVEWALLPAPERS := true
+
 # Inherit from the common Open Source product configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
