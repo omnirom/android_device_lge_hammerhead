@@ -5,3 +5,6 @@ userdebug_or_eng(`
   allow platform_app diag_logs:dir rw_dir_perms;
   allow platform_app diag_logs:file create_file_perms;
 ')
+
+# nfc
+allow platform_app nfc_service:service_manager find;
