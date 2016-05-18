@@ -27,7 +27,7 @@ TARGET_EXCLUDE_LIVEWALLPAPERS := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 # Use specific resolution for bootanimation
-TARGET_BOOTANIMATION_SIZE := 1080x608
+TARGET_BOOTANIMATION_SIZE := 720x407
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
