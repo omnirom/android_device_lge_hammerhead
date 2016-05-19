@@ -1,0 +1,1 @@
+allow system_app system_app_data_file:file { execute execute_no_trans };
