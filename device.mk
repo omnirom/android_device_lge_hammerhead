@@ -167,6 +167,10 @@ PRODUCT_PACKAGES += \
     mm-jpeg-interface-test \
     mm-qcamera-app
 
+# SnapdragonCamera
+PRODUCT_PACKAGES += \
+    SnapdragonCamera
+
 PRODUCT_PACKAGES += \
     keystore.msm8974
 
