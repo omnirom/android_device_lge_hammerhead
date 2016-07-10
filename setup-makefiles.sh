@@ -28,14 +28,180 @@ PRODUCT_COPY_FILES += \\
 EOF
 
 LINEEND=" \\"
-COUNT=`cat proprietary-blobs.txt | grep -v ^# | grep -v ^$ | wc -l | awk {'print $1'}`
-for FILE in `cat proprietary-blobs.txt | grep -v ^# | grep -v ^$ | sed -e 's#^/system/##g'`; do
+COUNT=`cat proprietary-blobs.txt | grep -v ^# | grep -v ^$ | grep -v .apk$ | wc -l | awk {'print $1'}`
+for FILE in `cat proprietary-blobs.txt | grep -v ^# | grep -v ^$ | grep -v .apk$ | sed -e 's#^/system/##g'`; do
     COUNT=`expr $COUNT - 1`
     if [ $COUNT = "0" ]; then
         LINEEND=""
     fi
     echo "    $OUTDIR/proprietary/$FILE:system/$FILE$LINEEND" >> $MAKEFILE
 done
+
+(cat << EOF) > ../../../$OUTDIR/proprietary/Android.mk
+# Copyright 2013 The Android Open Source Project
+# Copyright 2013 The OmniROM Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+LOCAL_PATH := \$(call my-dir)
+
+ifeq (\$(TARGET_DEVICE),$DEVICE)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE := qcrilmsgtunnel
+LOCAL_MODULE_TAGS := optional
+LOCAL_BUILT_MODULE_STEM := \$(LOCAL_MODULE).apk
+LOCAL_MODULE_OWNER := lge
+LOCAL_MODULE_CLASS := APPS
+LOCAL_SRC_FILES := app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE := TimeService
+LOCAL_MODULE_TAGS := optional
+LOCAL_BUILT_MODULE_STEM := \$(LOCAL_MODULE).apk
+LOCAL_MODULE_OWNER := lge
+LOCAL_MODULE_CLASS := APPS
+LOCAL_SRC_FILES := app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE := shutdownlistener
+LOCAL_MODULE_TAGS := optional
+LOCAL_BUILT_MODULE_STEM := \$(LOCAL_MODULE).apk
+LOCAL_MODULE_OWNER := lge
+LOCAL_MODULE_CLASS := APPS
+LOCAL_SRC_FILES := app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE := UpdateSetting
+LOCAL_MODULE_TAGS := optional
+LOCAL_BUILT_MODULE_STEM := \$(LOCAL_MODULE).apk
+LOCAL_MODULE_OWNER := lge
+LOCAL_MODULE_CLASS := APPS
+LOCAL_SRC_FILES := app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE := OmaDmclient
+LOCAL_MODULE_TAGS := optional
+LOCAL_BUILT_MODULE_STEM := \$(LOCAL_MODULE).apk
+LOCAL_MODULE_OWNER := lge
+LOCAL_MODULE_CLASS := APPS
+LOCAL_SRC_FILES := priv-app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
+LOCAL_CERTIFICATE := platform
+LOCAL_PRIVILEGED_MODULE := true
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_MODULE := SprintHiddenMenu
+LOCAL_MODULE_TAGS := optional
+LOCAL_BUILT_MODULE_STEM := \$(LOCAL_MODULE).apk
+LOCAL_MODULE_OWNER := lge
+LOCAL_MODULE_CLASS := APPS
+LOCAL_SRC_FILES := priv-app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
+LOCAL_CERTIFICATE := platform
+LOCAL_PRIVILEGED_MODULE := true
+include \$(BUILD_PREBUILT)
+
+endif
+EOF
+
+(cat << EOF) > ../../../$OUTDIR/proprietary/vendor/Android.mk
+# Copyright 2013 The Android Open Source Project
+# Copyright 2013 The OmniROM Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+LOCAL_PATH := \$(call my-dir)
+
+ifeq (\$(TARGET_DEVICE),$DEVICE)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := libacdbloader
+LOCAL_SRC_FILES := lib/libacdbloader.so
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := \$(TARGET_OUT)/lib
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_OWNER := qcom
+
+# Create symbolic link because user space can access persist directory,
+# while kernel ALSA drivers can only access the /system/etc/firmware directory
+LOCAL_POST_INSTALL_CMD := \\
+    mkdir -p \$(TARGET_OUT_ETC)/firmware/wcd9320; \\
+        ln -sf /data/misc/audio/wcd9320_anc.bin \\
+        \$(TARGET_OUT_ETC)/firmware/wcd9320/wcd9320_anc.bin; \\
+        ln -sf /data/misc/audio/mbhc.bin \\
+        \$(TARGET_OUT_ETC)/firmware/wcd9320/wcd9320_mbhc.bin;
+
+include \$(BUILD_PREBUILT)
+
+endif
+EOF
+
+(cat << EOF) > ../../../$OUTDIR/twrp-decrypt.mk
+# Copyright 2016 The Omnirom project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# TWRP decrypt files
+PRODUCT_COPY_FILES += \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/keymaster/keymaster.b00:recovery/root/vendor/firmware/keymaster/keymaster.b00 \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/keymaster/keymaster.b01:recovery/root/vendor/firmware/keymaster/keymaster.b01 \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/keymaster/keymaster.b02:recovery/root/vendor/firmware/keymaster/keymaster.b02 \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/keymaster/keymaster.b03:recovery/root/vendor/firmware/keymaster/keymaster.b03 \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/keymaster/keymaster.mdt:recovery/root/vendor/firmware/keymaster/keymaster.mdt \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/cmnlib.b00:recovery/root/vendor/firmware/cmnlib.b00 \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/cmnlib.b01:recovery/root/vendor/firmware/cmnlib.b01 \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/cmnlib.b02:recovery/root/vendor/firmware/cmnlib.b02 \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/cmnlib.b03:recovery/root/vendor/firmware/cmnlib.b03 \\
+    vendor/$VENDOR/$DEVICE/proprietary/vendor/firmware/cmnlib.mdt:recovery/root/vendor/firmware/cmnlib.mdt \\
+    vendor/$VENDOR/$DEVICE/proprietary/lib/libQSEEComAPI.so:recovery/root/vendor/lib/libQSEEComAPI.so \\
+    vendor/$VENDOR/$DEVICE/proprietary/lib/hw/keystore.msm8974.so:recovery/root/vendor/lib/hw/keystore.msm8974.so
+
+EOF
 
 (cat << EOF) > ../../../$OUTDIR/device-vendor.mk
 # Copyright 2013 The Android Open Source Project
@@ -53,6 +219,18 @@ done
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Apps
+PRODUCT_PACKAGES += \\
+    OmaDmclient \\
+    qcrilmsgtunnel \\
+    SprintHiddenMenu \\
+    shutdownlistener \\
+    TimeService \\
+    UpdateSetting \\
+    libacdbloader
+
+# twrp decrypt files
+\$(call inherit-product-if-exists, vendor/$VENDOR/$DEVICE/twrp-decrypt.mk)
 
 \$(call inherit-product-if-exists, vendor/$VENDOR/$DEVICE/device-partial.mk)
 EOF
@@ -74,4 +252,21 @@ EOF
 # limitations under the License.
 
 -include vendor/$VENDOR/$DEVICE/BoardConfigPartial.mk
+EOF
+
+(cat << EOF) > ../../../$OUTDIR/BoardConfigPartial.mk
+# Copyright 2013 The Android Open Source Project
+# Copyright 2013 The OmniROM Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 EOF
