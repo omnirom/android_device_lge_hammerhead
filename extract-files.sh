@@ -16,7 +16,10 @@ else
     echo "usage: $0 [PATH_TO_EXPANDED_ROM]"
     echo ""
     echo "If PATH_TO_EXPANDED_ROM is not specified, blobs will be extracted from"
-    echo "the device using adb pull."
+    echo "the device using 'adb pull'."
+    echo ""
+    echo "[Warning] : to pull blobs using 'adb pull', the device must be running latest"
+    echo "OmniROM nightly or latest deodexed stock ROM"
     exit 1
   fi
 fi
